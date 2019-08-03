@@ -1,0 +1,139 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+   <Scripts><Script file="AggroMeter.lua" /></Scripts>
+   <Assets><Texture name="AggroMeterIcon" file="AggroMeterIcon.tga" /></Assets>
+ 
+	<Windows>
+  
+	<Window name="AggroMeter_Button" layer="secondary" movable="true" popable="false"  handleinput="true"  savesettings="true">
+		<EventHandlers><EventHandler event="OnMouseOver" function="AggroMeter.OnMouseOverStart"/><EventHandler event="OnRButtonUp" function="AggroMeter.OnTabRBU"/></EventHandlers>
+		<Size><AbsPoint x="32" y="32"/></Size>
+		<Anchors><Anchor point="bottom" relativePoint="top" relativeTo="EA_Window_OverheadMap"><AbsPoint x="0" y="2" /></Anchor></Anchors>
+		
+			<Windows>
+				<DynamicImage name="$parentIcon" texture="AggroMeterIcon" handleinput="false" textureScale="0.5" layer="overlay">
+				<Size><AbsPoint x="32" y="32" /></Size>
+				</DynamicImage>
+			</Windows>
+			
+	</Window>
+
+					<Label name="Aggro_Label_Template" font="font_default_text_large" autoresize="false" textalign="right" wordwrap="false" layer="overlay" alpha="1" popable="false" handleinput="true">	
+					<EventHandlers><EventHandler event="OnMouseOver" function="AggroMeter.SelectChar"/><EventHandler event="OnLButtonUp" function="AggroMeter.SelectChar" /></EventHandlers>
+					<Size><AbsPoint x="170" y="25" /></Size>
+					<Color r="255" g="255" b="77" />
+					</Label>
+ 
+					<DynamicImage name="Aggro_Tactic_Template" texture="" texturescale="0.35" handleinput="true" >
+					<EventHandlers><EventHandler event="OnMouseOver" function="AggroMeter.OnMouseOverStart"/></EventHandlers> 
+					<Size><AbsPoint x="22" y="22" /></Size>
+					</DynamicImage>			
+	  
+					<Window name="Aggro_Timer_Template" inherits="EA_Window_DefaultFrameStatusBar" layer="overlay" handleinput="true" >
+					<EventHandlers> <EventHandler event="OnMouseOver" function="AggroMeter.OnMouseOverStart"/></EventHandlers> 
+					<Size><AbsPoint x="100" y="23" /></Size>        
+					</Window>
+	  
+	  
+		<Window name="AggroMeterWindow" layer="default" movable="false" popable="false" sticky="true" handleinput="true">
+        <Size><AbsPoint x="310" y="165" /></Size>
+        <Anchors><Anchor point="topright" relativePoint="topright" relativeTo="AggroMeter_Button"><AbsPoint x="-20" y="20" /></Anchor></Anchors>
+		
+		<Windows>
+			        <FullResizeImage name="$parentBorderCheck" inherits="EA_FullResizeImage_BlackTransparent" layer="background" alpha="0.5" handleinput="false">        
+                    <Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="0" y="0"/></Anchor><Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"><AbsPoint x="0" y="0"/></Anchor></Anchors>
+					</FullResizeImage>	
+			
+			<Label name="$parentNameLabel" font="font_default_text_large" autoresize="true" textalign="left" wordwrap="false" ellipsisOnCrop="true" warnOnTextCropped="false"  layer="default" alpha="1" popable="false" handleinput="false">	
+			<Size><AbsPoint x="215" y="45" /></Size>
+			<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="10" y="5" /></Anchor></Anchors>
+			<Color r="255" g="55" b="55" />			
+			</Label>
+	
+			<Label name="$parentCombatLabel" font="font_default_text_large" autoresize="true" textalign="right" wordwrap="true" layer="default" alpha="1" popable="false" handleinput="false">	
+			<Size><AbsPoint x="150" y="45" /></Size>
+			<Anchors><Anchor point="topright" relativePoint="topright" relativeTo="$parent"><AbsPoint x="-10" y="5" /></Anchor></Anchors>
+			<Color r="245" g="245" b="245" />			
+			</Label>
+			
+			<!-- Aggro Holder #1 -->
+					<Label name="$parentAggroLabel1" inherits="Aggro_Label_Template">	
+					<Anchors><Anchor point="topright" relativePoint="topright" relativeTo="$parent"><AbsPoint x="-110" y="35" /></Anchor></Anchors>
+					</Label>
+
+					<DynamicImage name="$parentTactic1" inherits="Aggro_Tactic_Template">
+			        <Anchors><Anchor point="right" relativePoint="right" relativeTo="$parentAggroLabel1"><AbsPoint x="-175" y="-2" /></Anchor></Anchors>
+					</DynamicImage>			
+						
+					<Window name="$parentTimer1" inherits="Aggro_Timer_Template">
+					<Anchors><Anchor point="right" relativePoint="left" relativeTo="$parentAggroLabel1" ><AbsPoint x="5" y="-2" /></Anchor></Anchors>
+					</Window>
+					
+			<!-- Aggro Holder #2 -->			
+					<Label name="$parentAggroLabel2" inherits="Aggro_Label_Template">	
+					<Anchors><Anchor point="bottomright" relativePoint="topright" relativeTo="$parentAggroLabel1"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+					</Label>	
+
+					<DynamicImage name="$parentTactic2" inherits="Aggro_Tactic_Template">
+			        <Anchors><Anchor point="right" relativePoint="right" relativeTo="$parentAggroLabel2"><AbsPoint x="-175" y="-2" /></Anchor></Anchors>
+					</DynamicImage>		
+			
+					<Window name="$parentTimer2" inherits="Aggro_Timer_Template">
+					<Anchors><Anchor point="right" relativePoint="left" relativeTo="$parentAggroLabel2" ><AbsPoint x="5" y="-2" /></Anchor></Anchors>
+					</Window>
+					
+			<!-- Aggro Holder #3 -->		
+					<Label name="$parentAggroLabel3" inherits="Aggro_Label_Template">	
+					<Anchors><Anchor point="bottomright" relativePoint="topright" relativeTo="$parentAggroLabel2"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+					</Label>	
+
+					<DynamicImage name="$parentTactic3" inherits="Aggro_Tactic_Template">
+			        <Anchors><Anchor point="right" relativePoint="right" relativeTo="$parentAggroLabel3"><AbsPoint x="-175" y="-2" /></Anchor></Anchors>
+					</DynamicImage>		
+			
+					<Window name="$parentTimer3" inherits="Aggro_Timer_Template">
+					<Anchors><Anchor point="right" relativePoint="left" relativeTo="$parentAggroLabel3" ><AbsPoint x="5" y="-2" /></Anchor></Anchors>
+					</Window>
+				
+			<!-- Aggro Holder #4 -->		
+					<Label name="$parentAggroLabel4" inherits="Aggro_Label_Template">	
+					<Anchors><Anchor point="bottomright" relativePoint="topright" relativeTo="$parentAggroLabel3"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+					</Label>	
+
+					<DynamicImage name="$parentTactic4" inherits="Aggro_Tactic_Template">
+			        <Anchors><Anchor point="right" relativePoint="right" relativeTo="$parentAggroLabel4"><AbsPoint x="-175" y="-2" /></Anchor></Anchors>
+					</DynamicImage>		
+			
+					<Window name="$parentTimer4" inherits="Aggro_Timer_Template">
+					<Anchors><Anchor point="right" relativePoint="left" relativeTo="$parentAggroLabel4" ><AbsPoint x="5" y="-2" /></Anchor></Anchors>
+					</Window>
+						
+			<!-- Aggro Holder #5 -->		
+					<Label name="$parentAggroLabel5" inherits="Aggro_Label_Template">	
+					<Anchors><Anchor point="bottomright" relativePoint="topright" relativeTo="$parentAggroLabel4"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+					</Label>	
+
+					<DynamicImage name="$parentTactic5" inherits="Aggro_Tactic_Template">
+			        <Anchors><Anchor point="right" relativePoint="right" relativeTo="$parentAggroLabel5"><AbsPoint x="-175" y="-2" /></Anchor></Anchors>
+					</DynamicImage>		
+			
+					<Window name="$parentTimer5" inherits="Aggro_Timer_Template">
+					<Anchors><Anchor point="right" relativePoint="left" relativeTo="$parentAggroLabel5" ><AbsPoint x="5" y="-2" /></Anchor></Anchors>
+					</Window>
+			
+			<!-- Aggro Holder #6 -->		
+					<Label name="$parentAggroLabel6" inherits="Aggro_Label_Template">	
+					<Anchors><Anchor point="bottomright" relativePoint="topright" relativeTo="$parentAggroLabel5"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+					</Label>	
+
+					<DynamicImage name="$parentTactic6" inherits="Aggro_Tactic_Template">
+			        <Anchors><Anchor point="right" relativePoint="right" relativeTo="$parentAggroLabel6"><AbsPoint x="-175" y="-2" /></Anchor></Anchors>
+					</DynamicImage>		
+			
+					<Window name="$parentTimer6" inherits="Aggro_Timer_Template">
+					<Anchors><Anchor point="right" relativePoint="left" relativeTo="$parentAggroLabel6" ><AbsPoint x="5" y="-2" /></Anchor></Anchors>
+					</Window>
+						
+		</Windows>
+	</Window>		
+   </Windows>
+</Interface>
